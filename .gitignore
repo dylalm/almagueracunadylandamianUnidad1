@@ -1,0 +1,25 @@
+# Build folders
+bin/
+obj/
+# Cursor / VS Code workspace settings
+.vscode/
+# Rider
+.idea/
+# Logs
+*.log
+# Environment variables
+.env
+.env.*
+# ASP.NET User Secrets
+secrets.json
+# Local development configuration
+appsettings.Development.json
+# Publish output
+publish/
+# NuGet packages
+packages/
+*.nupkg
+# Windows
+Thumbs.db
+# macOS
+.DS_Store
