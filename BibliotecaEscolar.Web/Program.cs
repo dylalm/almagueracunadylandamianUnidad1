@@ -32,6 +32,8 @@ app.UseAuthorization();
 
 app.MapStaticAssets();
 
+app.UseStatusCodePagesWithReExecute("/Error/{0}");
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}")

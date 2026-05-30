@@ -1,0 +1,41 @@
+@model BibliotecaEscolar.Web.Models.Libro
+
+<h1>Nuevo Libro</h1>
+
+<form asp-action="Create" method="post">
+
+    <div class="mb-3">
+        <label>Título</label>
+        <input asp-for="Titulo" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>Autor</label>
+        <input asp-for="Autor" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>Editorial</label>
+        <input asp-for="Editorial" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>Año</label>
+        <input asp-for="Anio" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>Existencias</label>
+        <input asp-for="Existencias" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>Id Categoría</label>
+        <input asp-for="IdCategoria" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-success">
+        Guardar
+    </button>
+
+</form>

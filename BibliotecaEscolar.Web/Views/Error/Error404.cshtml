@@ -1,0 +1,27 @@
+@{
+    ViewData["Title"] = "Página no encontrada";
+}
+
+<div class="text-center mt-5">
+
+    <h1 class="display-1">404</h1>
+
+    <h2>Página no encontrada</h2>
+
+    <p>
+        La página que estás buscando no existe o fue movida.
+    </p>
+
+    <a asp-controller="Home"
+       asp-action="Index"
+       class="btn btn-primary">
+        Volver al Inicio
+    </a>
+
+    <a asp-controller="Libros"
+       asp-action="Index"
+       class="btn btn-secondary">
+        Buscar Libros
+    </a>
+
+</div>

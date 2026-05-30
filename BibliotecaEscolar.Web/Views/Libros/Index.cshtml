@@ -1,0 +1,32 @@
+@model IEnumerable<BibliotecaEscolar.Web.Models.Libro>
+
+<h1>Catálogo de Libros</h1>
+
+<a asp-action="Create" class="btn btn-primary mb-3">
+    Nuevo Libro
+</a>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Título</th>
+            <th>Autor</th>
+            <th>Editorial</th>
+            <th>Año</th>
+            <th>Existencias</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach(var libro in Model)
+        {
+            <tr>
+                <td>@libro.Titulo</td>
+                <td>@libro.Autor</td>
+                <td>@libro.Editorial</td>
+                <td>@libro.Anio</td>
+                <td>@libro.Existencias</td>
+            </tr>
+        }
+    </tbody>
+</table>
