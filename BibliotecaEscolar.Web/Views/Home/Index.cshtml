@@ -1,8 +1,126 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Inicio";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="p-5 mb-4 bg-light rounded-3 shadow-sm">
+    <div class="container-fluid py-5 text-center">
+        <h1 class="display-4 fw-bold">
+            Biblioteca Escolar Digital
+        </h1>
+
+        <p class="fs-5">
+            Plataforma para la gestión de libros, usuarios y préstamos.
+        </p>
+
+        <a asp-controller="Libros"
+           asp-action="Index"
+           class="btn btn-primary btn-lg">
+            Explorar Catálogo
+        </a>
+    </div>
+</div>
+
+<div class="row text-center">
+
+    <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body">
+
+                <h3>📚</h3>
+
+                <h5 class="card-title">
+                    Catálogo de Libros
+                </h5>
+
+                <p class="card-text">
+                    Consulta los libros disponibles en nuestra biblioteca.
+                </p>
+
+                <a asp-controller="Libros"
+                   asp-action="Index"
+                   class="btn btn-outline-primary">
+                    Ver Libros
+                </a>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body">
+
+                <h3>🔄</h3>
+
+                <h5 class="card-title">
+                    Préstamos
+                </h5>
+
+                <p class="card-text">
+                    Solicita libros y consulta tu historial de préstamos.
+                </p>
+
+                <a class="btn btn-outline-success">
+                    Próximamente
+                </a>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body">
+
+                <h3>👤</h3>
+
+                <h5 class="card-title">
+                    Usuarios
+                </h5>
+
+                <p class="card-text">
+                    Regístrate e inicia sesión para acceder a todos los servicios.
+                </p>
+
+                <a class="btn btn-outline-secondary">
+                    Próximamente
+                </a>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<hr class="my-5" />
+
+<div class="row">
+
+    <div class="col-md-6">
+        <h2>¿Qué ofrece el sistema?</h2>
+
+        <ul class="list-group">
+            <li class="list-group-item">Consulta de libros.</li>
+            <li class="list-group-item">Gestión de préstamos.</li>
+            <li class="list-group-item">Administración de usuarios.</li>
+            <li class="list-group-item">Búsqueda rápida de títulos.</li>
+            <li class="list-group-item">Control de existencias.</li>
+        </ul>
+    </div>
+
+    <div class="col-md-6">
+        <h2>Información</h2>
+
+        <p>
+            Este sistema fue desarrollado utilizando ASP.NET Core MVC,
+            Entity Framework Core y MySQL siguiendo el paradigma de
+            Programación Orientada a Objetos.
+        </p>
+
+        <p>
+            Su objetivo es facilitar la administración de una biblioteca
+            escolar mediante una interfaz sencilla y accesible.
+        </p>
+    </div>
+
 </div>
