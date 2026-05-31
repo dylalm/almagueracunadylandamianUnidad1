@@ -1,0 +1,40 @@
+@model BibliotecaEscolar.Web.Models.Libro
+
+<h2>Eliminar Libro</h2>
+
+<div class="alert alert-danger">
+
+    <h4>
+        ¿Está seguro de eliminar este libro?
+    </h4>
+
+</div>
+
+<hr />
+
+<p>
+    <strong>Título:</strong>
+    @Model.Titulo
+</p>
+
+<p>
+    <strong>Autor:</strong>
+    @Model.Autor
+</p>
+
+<form asp-action="Delete">
+
+    <input type="hidden"
+           asp-for="IdLibro" />
+
+    <button type="submit"
+            class="btn btn-danger">
+        Eliminar
+    </button>
+
+    <a asp-action="Index"
+       class="btn btn-secondary">
+        Cancelar
+    </a>
+
+</form>

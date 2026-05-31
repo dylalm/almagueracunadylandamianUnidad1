@@ -6,19 +6,8 @@
     Nuevo Libro
 </a>
 
-<a asp-action="delate" class="btn btn-danger mb-3">
-    Eliminar Libro  
-</a>
+<table class="table table-bordered table-striped">
 
-<a asp-action="edit" class="btn btn-warning mb-3">
-    Editar Libro 
-</a>
-
-<a asp-action="details" class="btn btn-info mb-3">
-    Detalles del Libro
-</a>
-
-<table class="table table-bordered">
     <thead>
         <tr>
             <th>Título</th>
@@ -26,19 +15,47 @@
             <th>Editorial</th>
             <th>Año</th>
             <th>Existencias</th>
+            <th>Acciones</th>
         </tr>
     </thead>
 
     <tbody>
+
         @foreach(var libro in Model)
         {
             <tr>
+
                 <td>@libro.Titulo</td>
                 <td>@libro.Autor</td>
                 <td>@libro.Editorial</td>
                 <td>@libro.Anio</td>
                 <td>@libro.Existencias</td>
+
+                <td>
+
+                    <a asp-action="Details"
+                       asp-route-id="@libro.IdLibro"
+                       class="btn btn-info btn-sm">
+                        Detalles
+                    </a>
+
+                    <a asp-action="Edit"
+                       asp-route-id="@libro.IdLibro"
+                       class="btn btn-warning btn-sm">
+                        Editar
+                    </a>
+
+                    <a asp-action="Delete"
+                       asp-route-id="@libro.IdLibro"
+                       class="btn btn-danger btn-sm">
+                        Eliminar
+                    </a>
+
+                </td>
+
             </tr>
         }
+
     </tbody>
+
 </table>
