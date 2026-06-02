@@ -1,6 +1,7 @@
 using BibliotecaEscolar.Web.Data;
 using BibliotecaEscolar.Web.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace BibliotecaEscolar.Web.Controllers;
@@ -43,12 +44,15 @@ public class LibrosController : Controller
     // GET: Libros/Create
     public IActionResult Create()
     {
-        ViewBag.Categorias = _context.Categorias.ToList();
+        ViewBag.Categorias = new SelectList(
+            _context.Categorias,
+            "IdCategoria",
+            "NombreCategoria"
+        );
 
         return View();
     }
 
-    // POST: Libros/Create
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create(Libro libro)
@@ -61,12 +65,15 @@ public class LibrosController : Controller
             return RedirectToAction(nameof(Index));
         }
 
-        ViewBag.Categorias = _context.Categorias.ToList();
+        ViewBag.Categorias = new SelectList(
+            _context.Categorias,
+            "IdCategoria",
+            "NombreCategoria"
+        );
 
         return View(libro);
     }
 
-    // GET: Libros/Edit/5
     public async Task<IActionResult> Edit(int? id)
     {
         if (id == null)
@@ -82,7 +89,6 @@ public class LibrosController : Controller
         return View(libro);
     }
 
-    // POST: Libros/Edit/5
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Edit(int id, Libro libro)
@@ -113,7 +119,6 @@ public class LibrosController : Controller
         return View(libro);
     }
 
-    // GET: Libros/Delete/5
     public async Task<IActionResult> Delete(int? id)
     {
         if (id == null)
@@ -129,7 +134,6 @@ public class LibrosController : Controller
         return View(libro);
     }
 
-    // POST: Libros/Delete/5
     [HttpPost, ActionName("Delete")]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteConfirmed(int id)
