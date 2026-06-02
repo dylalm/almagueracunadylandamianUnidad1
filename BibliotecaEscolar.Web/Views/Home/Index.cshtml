@@ -1,8 +1,9 @@
 ﻿@{
     ViewData["Title"] = "Inicio";
-}
 
+}
 <div class="p-5 mb-4 bg-light rounded-3 shadow-sm">
+    
     <div class="container-fluid py-5 text-center">
         <h1 class="display-4 fw-bold">
             Biblioteca Escolar Digital
@@ -82,8 +83,10 @@
                     Regístrate e inicia sesión para acceder a todos los servicios.
                 </p>
 
-                <a class="btn btn-outline-secondary">
-                    Próximamente
+                <a asp-controller="Account"
+                    asp-action="Register"
+                    class="btn btn-outline-primary">
+                        Registrarse
                 </a>
 
             </div>
@@ -124,3 +127,23 @@
     </div>
 
 </div>
+<<script>
+    const btnTema = document.getElementById("btnTema");
+
+    btnTema.addEventListener("click", function () {
+
+        document.body.classList.toggle("dark-mode");
+
+        if (document.body.classList.contains("dark-mode")) {
+            btnTema.innerHTML = "☀️ Modo Claro";
+            btnTema.classList.remove("btn-dark");
+            btnTema.classList.add("btn-light");
+        }
+        else {
+            btnTema.innerHTML = "🌙 Modo Oscuro";
+            btnTema.classList.remove("btn-light");
+            btnTema.classList.add("btn-dark");
+        }
+
+    });
+</script>
