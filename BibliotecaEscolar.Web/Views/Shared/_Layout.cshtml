@@ -9,6 +9,35 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/BibliotecaEscolar.Web.styles.css" asp-append-version="true" />
 </head>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const btnTema = document.getElementById("btnTema");
+
+        if (localStorage.getItem("tema") === "oscuro") {
+            document.body.classList.add("dark-mode");
+            btnTema.innerHTML = "☀️";
+        }
+
+        btnTema.addEventListener("click", function () {
+
+            document.body.classList.toggle("dark-mode");
+
+            if (document.body.classList.contains("dark-mode")) {
+
+                localStorage.setItem("tema", "oscuro");
+                btnTema.innerHTML = "☀️";
+
+            } else {
+
+                localStorage.setItem("tema", "claro");
+                btnTema.innerHTML = "🌙";
+            }
+
+        });
+
+    });
+</script>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-dark bg-dark border-bottom mb-4">
@@ -44,11 +73,11 @@
                             </a>
                         </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link">
+                        <a class="nav-link"
+                            asp-controller="Prestamos"
+                            asp-action="Index">
                                 Préstamos
-                            </a>
-                        </li>
+                        </a>
 
                         <li class="nav-item">
                             <a class="nav-link">
@@ -63,9 +92,9 @@
                         </li>
 
                     </ul>
-                    <div class="text-end mb-3">
-                        <button id="btnTema" class="btn btn-dark">
-                            🌙 Modo Oscuro
+                    <div class="d-flex align-items-center">
+                        <button id="btnTema" class="btn btn-outline-light">
+                            🌙
                         </button>
                     </div>
                 </div>

@@ -127,23 +127,3 @@
     </div>
 
 </div>
-<<script>
-    const btnTema = document.getElementById("btnTema");
-
-    btnTema.addEventListener("click", function () {
-
-        document.body.classList.toggle("dark-mode");
-
-        if (document.body.classList.contains("dark-mode")) {
-            btnTema.innerHTML = "☀️ Modo Claro";
-            btnTema.classList.remove("btn-dark");
-            btnTema.classList.add("btn-light");
-        }
-        else {
-            btnTema.innerHTML = "🌙 Modo Oscuro";
-            btnTema.classList.remove("btn-light");
-            btnTema.classList.add("btn-dark");
-        }
-
-    });
-</script>

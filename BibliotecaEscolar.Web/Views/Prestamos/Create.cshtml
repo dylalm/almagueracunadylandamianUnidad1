@@ -1,0 +1,72 @@
+@model BibliotecaEscolar.Web.Models.Prestamo
+
+@{
+    ViewData["Title"] = "Nuevo Préstamo";
+}
+
+<h1>Nuevo Préstamo</h1>
+
+<form asp-action="Create">
+
+    <div asp-validation-summary="ModelOnly"
+         class="text-danger">
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="IdUsuario"
+               class="form-label">
+            Usuario
+        </label>
+
+        <select asp-for="IdUsuario"
+                class="form-select"
+                asp-items="ViewBag.IdUsuario">
+            <option value="">
+                Seleccione un usuario
+            </option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="IdLibro"
+               class="form-label">
+            Libro
+        </label>
+
+        <select asp-for="IdLibro"
+                class="form-select"
+                asp-items="ViewBag.IdLibro">
+            <option value="">
+                Seleccione un libro
+            </option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="FechaDevolucion"
+               class="form-label">
+            Fecha de devolución
+        </label>
+
+        <input asp-for="FechaDevolucion"
+               type="date"
+               class="form-control" />
+    </div>
+
+    <button type="submit"
+            class="btn btn-success">
+        Registrar Préstamo
+    </button>
+
+    <a asp-action="Index"
+       class="btn btn-secondary">
+        Volver
+    </a>
+
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
