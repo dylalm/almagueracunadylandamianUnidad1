@@ -11,7 +11,7 @@ obj/
 .env
 .env.*
 # ASP.NET User Secrets
-appsettings.json
+secrets.json
 # Local development configuration
 appsettings.Development.json
 # Publish output

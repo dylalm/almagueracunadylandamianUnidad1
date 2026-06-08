@@ -68,6 +68,12 @@
             class="btn btn-primary">
         Registrarse
     </button>
+    
+    <div class="mb-3">
+        <div class="g-recaptcha"
+            data-sitekey="@ViewBag.SiteKey">
+        </div>
+    </div>
 
 </form>
 
@@ -76,3 +82,5 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }
+
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
