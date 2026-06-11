@@ -1,0 +1,33 @@
+@using System.Security.Claims
+
+@{
+    ViewData["Title"] = "Mi Perfil";
+}
+
+<div class="container mt-4">
+
+    <h2>Mi Perfil</h2>
+    <hr />
+
+    <div class="card">
+        <div class="card-body">
+
+            <p>
+                <strong>Nombre:</strong>
+                @User.Identity?.Name
+            </p>
+
+            <p>
+                <strong>Correo:</strong>
+                @User.FindFirst(ClaimTypes.Email)?.Value
+            </p>
+
+            <p>
+                <strong>Rol:</strong>
+                @User.FindFirst(ClaimTypes.Role)?.Value
+            </p>
+
+        </div>
+    </div>
+
+</div>

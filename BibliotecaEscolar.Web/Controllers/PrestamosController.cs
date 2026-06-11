@@ -1,9 +1,9 @@
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using BibliotecaEscolar.Web.Data;
 using BibliotecaEscolar.Web.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace BibliotecaEscolar.Web.Controllers;
 
@@ -17,75 +17,112 @@ public class PrestamosController : Controller
         _context = context;
     }
 
-    // GET: Prestamos
+    // Lista general
     public async Task<IActionResult> Index()
     {
-        var prestamos = _context.Prestamos
+        var prestamos = await _context.Prestamos
             .Include(p => p.Usuario)
-            .Include(p => p.Libro);
+            .Include(p => p.Libro)
+            .ToListAsync();
 
-        return View(await prestamos.ToListAsync());
+        return View(prestamos);
     }
 
-    // GET: Prestamos/Create
-    public IActionResult Create()
+    // Mis préstamos
+    public async Task<IActionResult> MisPrestamos()
     {
-        ViewData["IdUsuario"] = new SelectList(
-            _context.Usuarios,
-            "IdUsuario",
-            "Nombre");
+        var idUsuario = int.Parse(
+            User.FindFirst("IdUsuario")!.Value);
 
-        ViewData["IdLibro"] = new SelectList(
-            _context.Libros,
-            "IdLibro",
-            "Titulo");
+        var prestamos = await _context.Prestamos
+            .Include(p => p.Libro)
+            .Where(p => p.IdUsuario == idUsuario)
+            .ToListAsync();
 
-        return View();
+        return View(prestamos);
     }
 
-    // POST: Prestamos/Create
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create(Prestamo prestamo)
+    // Crear préstamo
+    public async Task<IActionResult> Create(int idLibro)
     {
         var libro = await _context.Libros
-            .FirstOrDefaultAsync(l => l.IdLibro == prestamo.IdLibro);
+            .FirstOrDefaultAsync(l => l.IdLibro == idLibro);
 
         if (libro == null)
-        {
-            ModelState.AddModelError("", "Libro no encontrado.");
-        }
-        else if (libro.Existencias <= 0)
-        {
-            ModelState.AddModelError("", "No hay existencias disponibles.");
-        }
+            return NotFound();
 
-        if (!ModelState.IsValid)
+        if (libro.Existencias <= 0)
         {
-            ViewData["IdUsuario"] = new SelectList(
-                _context.Usuarios,
-                "IdUsuario",
-                "Nombre",
-                prestamo.IdUsuario);
+            TempData["Error"] =
+                "No hay existencias disponibles.";
 
-            ViewData["IdLibro"] = new SelectList(
-                _context.Libros,
-                "IdLibro",
-                "Titulo",
-                prestamo.IdLibro);
-
-            return View(prestamo);
+            return RedirectToAction(
+                "Details",
+                "Libros",
+                new { id = idLibro });
         }
 
-        prestamo.FechaPrestamo = DateTime.Now;
-        prestamo.Estado = "Activo";
+        var idUsuario = int.Parse(
+            User.FindFirst("IdUsuario")!.Value);
 
-        libro!.Existencias--;
+        var prestamo = new Prestamo
+        {
+            IdUsuario = idUsuario,
+            IdLibro = libro.IdLibro,
+            FechaPrestamo = DateTime.Now,
+            FechaDevolucion = DateTime.Now.AddDays(7),
+            Estado = "Activo"
+        };
 
-        _context.Add(prestamo);
+        libro.Existencias--;
+
+        _context.Prestamos.Add(prestamo);
 
         await _context.SaveChangesAsync();
 
-        return RedirectToAction(nameof(Index));
+        TempData["Success"] =
+            "Préstamo realizado correctamente.";
+
+        return RedirectToAction(nameof(MisPrestamos));
+    }
+
+    // Devolver libro
+    public async Task<IActionResult> Devolver(int id)
+    {
+        var prestamo = await _context.Prestamos
+            .Include(p => p.Libro)
+            .FirstOrDefaultAsync(p => p.IdPrestamo == id);
+
+        if (prestamo == null)
+            return NotFound();
+
+        if (prestamo.Estado == "Devuelto")
+        {
+            return RedirectToAction(nameof(MisPrestamos));
+        }
+
+        prestamo.Estado = "Devuelto";
+
+        if (prestamo.Libro != null)
+        {
+            prestamo.Libro.Existencias++;
+        }
+
+        await _context.SaveChangesAsync();
+
+        return RedirectToAction(nameof(MisPrestamos));
+    }
+
+    public async Task<IActionResult> Details(int id)
+    {
+        var prestamo = await _context.Prestamos
+            .Include(p => p.Usuario)
+            .Include(p => p.Libro)
+            .FirstOrDefaultAsync(p => p.IdPrestamo == id);
+
+        if (prestamo == null)
+            return NotFound();
+
+        return View(prestamo);
     }
 }

@@ -1,38 +1,28 @@
 @model IEnumerable<BibliotecaEscolar.Web.Models.Prestamo>
 
-@{
-    ViewData["Title"] = "Préstamos";
-}
+<h1>Todos los Préstamos</h1>
 
-<h1>Préstamos</h1>
+<table class="table">
 
-<p>
-    <a asp-action="Create" class="btn btn-primary">
-        Nuevo Préstamo
-    </a>
-</p>
-
-<table class="table table-striped">
     <thead>
         <tr>
             <th>Usuario</th>
             <th>Libro</th>
-            <th>Fecha Préstamo</th>
-            <th>Fecha Devolución</th>
             <th>Estado</th>
         </tr>
     </thead>
 
     <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@item.Usuario?.Nombre</td>
-                <td>@item.Libro?.Titulo</td>
-                <td>@item.FechaPrestamo.ToShortDateString()</td>
-                <td>@item.FechaDevolucion?.ToShortDateString()</td>
-                <td>@item.Estado</td>
-            </tr>
-        }
+
+    @foreach(var item in Model)
+    {
+        <tr>
+            <td>@item.Usuario?.Nombre</td>
+            <td>@item.Libro?.Titulo</td>
+            <td>@item.Estado</td>
+        </tr>
+    }
+
     </tbody>
+
 </table>

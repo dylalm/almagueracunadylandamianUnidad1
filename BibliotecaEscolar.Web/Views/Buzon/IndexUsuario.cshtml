@@ -1,0 +1,47 @@
+@{
+    ViewData["Title"] = "Buzón";
+}
+
+<h1>Buzón</h1>
+
+<div class="row">
+
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-body">
+
+                <h4>📨 Enviar Mensaje</h4>
+
+                <p>
+                    Envía dudas, sugerencias o reportes al administrador.
+                </p>
+
+                <a asp-action="Create"
+                   class="btn btn-primary">
+                    Nuevo Mensaje
+                </a>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-body">
+
+                <h4>📋 Mis Mensajes</h4>
+
+                <p>
+                    Consulta los mensajes enviados y sus respuestas.
+                </p>
+
+                <a asp-action="MisMensajes"
+                   class="btn btn-success">
+                    Ver Mensajes
+                </a>
+
+            </div>
+        </div>
+    </div>
+
+</div>

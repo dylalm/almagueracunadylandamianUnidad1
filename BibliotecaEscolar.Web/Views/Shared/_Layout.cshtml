@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData[index: "Title"] - Biblioteca Escolar</title>
+    <title>@ViewData["Title"] - Biblioteca Escolar</title>
     <script type="importmap"></script>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
@@ -57,21 +57,24 @@
                             </a>
                         </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link"
-                            asp-controller="Account"
-                            asp-action="Login">
-                                Iniciar Sesión
-                            </a>
-                        </li>
+                        @if (User.Identity?.IsAuthenticated != true)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link"
+                                asp-controller="Account"
+                                asp-action="Register">
+                                    Registrarse
+                                </a>
+                            </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link"
-                            asp-controller="Account"
-                            asp-action="Register">
-                                Registrarse
-                            </a>
-                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link"
+                                asp-controller="Account"
+                                asp-action="Login">
+                                    Iniciar Sesión
+                                </a>
+                            </li>
+                        }
 
                         <li class="nav-item">
                             <a class="nav-link"
@@ -81,37 +84,75 @@
                             </a>
                         </li>
 
-                        <a class="nav-link"
+                        <li class="nav-item">
+                            <a class="nav-link"
                             asp-controller="Prestamos"
                             asp-action="Index">
                                 Préstamos
-                        </a>
-
-                        <li class="nav-item">
-                            <a class="nav-link">
-                                Ayuda
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link">
-                                Contacto
                             </a>
                         </li>
 
                         <li class="nav-item">
                             <a class="nav-link"
                             asp-controller="Buzon"
-                            asp-action="Create">
+                            asp-action="Index">
                                 Buzón
                             </a>
                         </li>
 
+                        <li class="nav-item">
+                            <a class="nav-link"
+                            asp-controller="Chat"
+                            asp-action="Index">
+                                Chat
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link"
+                            asp-controller="Home"
+                            asp-action="Ayuda">
+                                Ayuda
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link"
+                            asp-controller="Home"
+                            asp-action="Contacto">
+                                Contacto
+                            </a>
+                        </li>
+
+                        @if (User.Identity?.IsAuthenticated == true)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link"
+                                asp-controller="Account"
+                                asp-action="Profile">
+                                    Mi Perfil
+                                </a>
+                            </li>
+                        }
                     </ul>
+
                     <div class="d-flex align-items-center">
-                        <button id="btnTema" class="btn btn-outline-light">
+                        <button id="btnTema" class="btn btn-outline-light me-3">
                             🌙
                         </button>
+
+                        @if (User.Identity?.IsAuthenticated == true)
+                        {
+                            <span class="navbar-text me-3">
+                                Hola, @User.Identity.Name
+                            </span>
+
+                            <a asp-controller="Account"
+                            asp-action="Logout"
+                            class="btn btn-danger">
+                                Cerrar Sesion
+                            </a>
+                        }
                     </div>
                 </div>
             </div>

@@ -25,6 +25,8 @@ public class Usuario
     public string Matricula { get; set; } = string.Empty;
 
     public string Rol { get; set; } = "Usuario";
+    
+    public ICollection<Mensaje>? Mensajes { get; set; }
 
     public ICollection<Prestamo>? Prestamos { get; set; }
 }

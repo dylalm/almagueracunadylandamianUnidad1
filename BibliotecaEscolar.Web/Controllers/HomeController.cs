@@ -11,6 +11,16 @@ public class HomeController : Controller
         return View();
     }
 
+    public IActionResult Ayuda()
+    {
+        return View();
+    }
+
+    public IActionResult Contacto()
+    {
+        return View();
+    } 
+
     public IActionResult Privacy()
     {
         return View();

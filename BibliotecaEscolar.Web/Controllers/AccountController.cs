@@ -9,6 +9,7 @@ using System.Security.Claims;
 
 namespace BibliotecaEscolar.Web.Controllers;
 
+[Authorize]
 public class AccountController : Controller
 {
     private readonly BibliotecaContext _context;
@@ -27,6 +28,14 @@ public class AccountController : Controller
     {
         return View();
     }
+
+    public IActionResult Profile()
+    {
+        return View();
+    }
+
+
+
 
     [HttpPost]
     [AllowAnonymous]

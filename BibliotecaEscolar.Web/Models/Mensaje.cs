@@ -7,6 +7,10 @@ public class Mensaje
     [Key]
     public int IdMensaje { get; set; }
 
+    public int IdUsuario { get; set; }
+
+    public Usuario? Usuario { get; set; }
+
     [Required]
     public string NombreRemitente { get; set; } = string.Empty;
 
@@ -23,4 +27,8 @@ public class Mensaje
     public string Contenido { get; set; } = string.Empty;
 
     public DateTime FechaEnvio { get; set; } = DateTime.Now;
+
+    public string Estado { get; set; } = "Pendiente";
+
+    public string? Respuesta { get; set; }
 }

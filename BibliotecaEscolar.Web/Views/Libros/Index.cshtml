@@ -1,10 +1,20 @@
 @model IEnumerable<BibliotecaEscolar.Web.Models.Libro>
 
+@{
+    ViewData["Title"] = "Catálogo de Libros";
+}
+
 <h1>Catálogo de Libros</h1>
 
-<a asp-action="Create" class="btn btn-primary mb-3">
-    Nuevo Libro
-</a>
+@if (User.IsInRole("Administrador"))
+{
+    <p>
+        <a asp-action="Create"
+           class="btn btn-success">
+            Nuevo Libro
+        </a>
+    </p>
+}
 
 <table class="table table-bordered table-striped">
 
@@ -21,7 +31,7 @@
 
     <tbody>
 
-        @foreach(var libro in Model)
+        @foreach (var libro in Model)
         {
             <tr>
 
@@ -39,17 +49,20 @@
                         Detalles
                     </a>
 
-                    <a asp-action="Edit"
-                       asp-route-id="@libro.IdLibro"
-                       class="btn btn-warning btn-sm">
-                        Editar
-                    </a>
+                    @if (User.IsInRole("Administrador"))
+                    {
+                        <a asp-action="Edit"
+                           asp-route-id="@libro.IdLibro"
+                           class="btn btn-warning btn-sm">
+                            Editar
+                        </a>
 
-                    <a asp-action="Delete"
-                       asp-route-id="@libro.IdLibro"
-                       class="btn btn-danger btn-sm">
-                        Eliminar
-                    </a>
+                        <a asp-action="Delete"
+                           asp-route-id="@libro.IdLibro"
+                           class="btn btn-danger btn-sm">
+                            Eliminar
+                        </a>
+                    }
 
                 </td>
 

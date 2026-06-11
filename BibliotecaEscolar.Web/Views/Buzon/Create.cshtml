@@ -1,38 +1,68 @@
 @model BibliotecaEscolar.Web.Models.Mensaje
 
-<h1>Buzón</h1>
+@{
+    ViewData["Title"] = "Enviar Mensaje";
+}
 
-<form asp-action="Create">
+<h1>Enviar Mensaje</h1>
 
-    <div class="mb-3">
-        <label asp-for="NombreRemitente"></label>
-        <input asp-for="NombreRemitente"
-               class="form-control" />
+<hr />
+
+<div class="row">
+    <div class="col-md-6">
+
+        <form asp-action="Create">
+
+            <div asp-validation-summary="ModelOnly"
+                 class="text-danger">
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Asunto"
+                       class="form-label">
+                </label>
+
+                <input asp-for="Asunto"
+                       class="form-control" />
+
+                <span asp-validation-for="Asunto"
+                      class="text-danger">
+                </span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Contenido"
+                       class="form-label">
+                    Mensaje
+                </label>
+
+                <textarea asp-for="Contenido"
+                          class="form-control"
+                          rows="6">
+                </textarea>
+
+                <span asp-validation-for="Contenido"
+                      class="text-danger">
+                </span>
+            </div>
+
+            <button type="submit"
+                    class="btn btn-primary">
+                Enviar
+            </button>
+
+            <a asp-action="MisMensajes"
+               class="btn btn-secondary">
+                Mis Mensajes
+            </a>
+
+        </form>
+
     </div>
+</div>
 
-    <div class="mb-3">
-        <label asp-for="CorreoRemitente"></label>
-        <input asp-for="CorreoRemitente"
-               class="form-control" />
-    </div>
-
-    <div class="mb-3">
-        <label asp-for="Asunto"></label>
-        <input asp-for="Asunto"
-               class="form-control" />
-    </div>
-
-    <div class="mb-3">
-        <label asp-for="Contenido"></label>
-        <textarea asp-for="Contenido"
-                  class="form-control"
-                  rows="5">
-        </textarea>
-    </div>
-
-    <button type="submit"
-            class="btn btn-primary">
-        Enviar
-    </button>
-
-</form>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

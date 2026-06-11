@@ -44,6 +44,7 @@ public class LibrosController : Controller
     }
 
     // GET: Libros/Create
+    [Authorize(Roles = "Administrador")]
     public IActionResult Create()
     {
         ViewBag.Categorias = new SelectList(
@@ -57,6 +58,7 @@ public class LibrosController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
+    [Authorize(Roles = "Administrador")]
     public async Task<IActionResult> Create(Libro libro)
     {
         if (ModelState.IsValid)
@@ -76,6 +78,7 @@ public class LibrosController : Controller
         return View(libro);
     }
 
+    [Authorize(Roles = "Administrador")]
     public async Task<IActionResult> Edit(int? id)
     {
         if (id == null)
@@ -93,6 +96,7 @@ public class LibrosController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
+    [Authorize(Roles = "Administrador")]
     public async Task<IActionResult> Edit(int id, Libro libro)
     {
         if (id != libro.IdLibro)
@@ -121,6 +125,7 @@ public class LibrosController : Controller
         return View(libro);
     }
 
+    [Authorize(Roles = "Administrador")]
     public async Task<IActionResult> Delete(int? id)
     {
         if (id == null)
@@ -138,6 +143,7 @@ public class LibrosController : Controller
 
     [HttpPost, ActionName("Delete")]
     [ValidateAntiForgeryToken]
+    [Authorize(Roles = "Administrador")]
     public async Task<IActionResult> DeleteConfirmed(int id)
     {
         var libro = await _context.Libros.FindAsync(id);

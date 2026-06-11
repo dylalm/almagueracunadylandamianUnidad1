@@ -1,0 +1,58 @@
+@model BibliotecaEscolar.Web.Models.ChatViewModel
+
+@{
+    ViewData["Title"] = "Chat";
+}
+
+<div class="container">
+
+    <h1 class="mb-4">
+        Chat de Ayuda
+    </h1>
+
+    <div class="card shadow">
+
+        <div class="card-body">
+
+            <form asp-action="Index"
+                  method="post">
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        Escriba su pregunta
+                    </label>
+
+                    <input asp-for="Pregunta"
+                           class="form-control"
+                           placeholder="Ejemplo: ¿Cómo solicito un préstamo?" />
+
+                </div>
+
+                <button type="submit"
+                        class="btn btn-primary">
+                    Enviar
+                </button>
+
+            </form>
+
+            @if (!string.IsNullOrEmpty(Model.Respuesta))
+            {
+                <hr />
+
+                <div class="alert alert-success">
+
+                    <strong>Bot:</strong>
+
+                    <p class="mb-0">
+                        @Model.Respuesta
+                    </p>
+
+                </div>
+            }
+
+        </div>
+
+    </div>
+
+</div>

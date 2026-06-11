@@ -1,0 +1,56 @@
+@model IEnumerable<BibliotecaEscolar.Web.Models.Prestamo>
+
+@{
+    ViewData["Title"] = "Mis Préstamos";
+}
+
+<h1>Mis Préstamos</h1>
+
+<table class="table table-striped">
+
+    <thead>
+        <tr>
+            <th>Libro</th>
+            <th>Fecha Préstamo</th>
+            <th>Fecha Devolución</th>
+            <th>Estado</th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+    @foreach(var item in Model)
+    {
+        <tr>
+            <td>@item.Libro?.Titulo</td>
+
+            <td>
+                @item.FechaPrestamo.ToShortDateString()
+            </td>
+
+            <td>
+                @item.FechaDevolucion?.ToShortDateString()
+            </td>
+
+            <td>@item.Estado</td>
+
+            <td>
+
+                @if(item.Estado == "Activo")
+                {
+                    <a asp-action="Devolver"
+                       asp-route-id="@item.IdPrestamo"
+                       class="btn btn-warning">
+                        Devolver
+                    </a>
+                }
+
+            </td>
+
+        </tr>
+    }
+
+    </tbody>
+
+</table>

@@ -1,6 +1,7 @@
 using BibliotecaEscolar.Web.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using BibliotecaEscolar.Web.Services;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,6 +24,8 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.LoginPath = "/Account/Login";
         options.AccessDeniedPath = "/Account/Login";
     });
+
+builder.Services.AddSingleton<ChatBotService>();
 
 var app = builder.Build();
 
