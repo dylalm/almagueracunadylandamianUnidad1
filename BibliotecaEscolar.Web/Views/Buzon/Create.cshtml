@@ -1,0 +1,38 @@
+@model BibliotecaEscolar.Web.Models.Mensaje
+
+<h1>Buzón</h1>
+
+<form asp-action="Create">
+
+    <div class="mb-3">
+        <label asp-for="NombreRemitente"></label>
+        <input asp-for="NombreRemitente"
+               class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="CorreoRemitente"></label>
+        <input asp-for="CorreoRemitente"
+               class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Asunto"></label>
+        <input asp-for="Asunto"
+               class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Contenido"></label>
+        <textarea asp-for="Contenido"
+                  class="form-control"
+                  rows="5">
+        </textarea>
+    </div>
+
+    <button type="submit"
+            class="btn btn-primary">
+        Enviar
+    </button>
+
+</form>

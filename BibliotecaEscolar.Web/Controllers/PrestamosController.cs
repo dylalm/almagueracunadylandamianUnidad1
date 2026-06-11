@@ -3,9 +3,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BibliotecaEscolar.Web.Data;
 using BibliotecaEscolar.Web.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BibliotecaEscolar.Web.Controllers;
 
+[Authorize]
 public class PrestamosController : Controller
 {
     private readonly BibliotecaContext _context;

@@ -1,0 +1,28 @@
+@model IEnumerable<BibliotecaEscolar.Web.Models.Mensaje>
+
+<h1>Mensajes Recibidos</h1>
+
+<table class="table">
+
+    <thead>
+        <tr>
+            <th>Remitente</th>
+            <th>Correo</th>
+            <th>Asunto</th>
+            <th>Fecha</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.NombreRemitente</td>
+                <td>@item.CorreoRemitente</td>
+                <td>@item.Asunto</td>
+                <td>@item.FechaEnvio</td>
+            </tr>
+        }
+    </tbody>
+
+</table>

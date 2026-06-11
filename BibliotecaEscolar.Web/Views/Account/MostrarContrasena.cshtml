@@ -1,0 +1,20 @@
+@{
+    ViewData["Title"] = "Contraseña";
+}
+
+<h2>Contraseña recuperada</h2>
+
+<div class="alert alert-success">
+
+    Su contraseña es:
+
+    <strong>
+        @TempData["Contrasena"]
+    </strong>
+
+</div>
+
+<a asp-action="Login"
+   class="btn btn-primary">
+    Volver al Login
+</a>

@@ -2,6 +2,10 @@ using Microsoft.AspNetCore.Mvc;
 using BibliotecaEscolar.Web.Data;
 using BibliotecaEscolar.Web.Models;
 using System.Text.Json;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace BibliotecaEscolar.Web.Controllers;
 
@@ -16,6 +20,64 @@ public class AccountController : Controller
     {
         _context = context;
         _configuration = configuration;
+    }
+
+    [AllowAnonymous]
+    public IActionResult Login()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    [AllowAnonymous]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Login(LoginViewModel model)
+    {
+        if (!ModelState.IsValid)
+        {
+            return View(model);
+        }
+
+        var usuario = _context.Usuarios.FirstOrDefault(u =>
+            u.Correo == model.Correo &&
+            u.Contrasena == model.Contrasena);
+
+        if (usuario == null)
+        {
+            ModelState.AddModelError(
+                "",
+                "Correo o contraseña incorrectos.");
+
+            return View(model);
+        }
+
+        var claims = new List<Claim>
+        {
+            new Claim(ClaimTypes.Name, usuario.Nombre),
+            new Claim(ClaimTypes.Email, usuario.Correo),
+            new Claim(ClaimTypes.Role, usuario.Rol),
+            new Claim("IdUsuario", usuario.IdUsuario.ToString())
+        };
+
+        var identity = new ClaimsIdentity(
+            claims,
+            CookieAuthenticationDefaults.AuthenticationScheme);
+
+        var principal = new ClaimsPrincipal(identity);
+
+        await HttpContext.SignInAsync(
+            CookieAuthenticationDefaults.AuthenticationScheme,
+            principal);
+
+        return RedirectToAction("Index", "Home");
+    }
+
+    public async Task<IActionResult> Logout()
+    {
+        await HttpContext.SignOutAsync(
+            CookieAuthenticationDefaults.AuthenticationScheme);
+
+        return RedirectToAction("Login");
     }
 
     private async Task<bool> ValidarReCaptcha(string token)
@@ -36,6 +98,49 @@ public class AccountController : Controller
         return document.RootElement
             .GetProperty("success")
             .GetBoolean();
+    }
+
+    [AllowAnonymous]
+    public IActionResult ForgotPassword()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    [AllowAnonymous]
+    [ValidateAntiForgeryToken]
+    public IActionResult ForgotPassword(
+        ForgotPasswordViewModel model)
+    {
+        if (!ModelState.IsValid)
+        {
+            return View(model);
+        }
+
+        var usuario = _context.Usuarios.FirstOrDefault(u =>
+            u.Correo == model.Correo &&
+            u.Matricula == model.Matricula);
+
+        if (usuario == null)
+        {
+            ModelState.AddModelError(
+                "",
+                "Los datos no coinciden.");
+
+            return View(model);
+        }
+
+        TempData["Contrasena"] =
+            usuario.Contrasena;
+
+        return RedirectToAction(
+            "MostrarContrasena");
+    }
+
+    [AllowAnonymous]
+    public IActionResult MostrarContrasena()
+    {
+        return View();
     }
 
     // GET: Account/Register
